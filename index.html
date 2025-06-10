@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>$BIGBALLZ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      scroll-behavior: smooth;
+      font-family: 'Rubik', sans-serif;
+      background: #fefbf1;
+      color: #111;
+      overflow-x: hidden;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1.5rem;
+      background: rgba(0, 0, 0, 0.9);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    nav a {
+      color: #facc15;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .hero {
+      background: url('top-bg.png') center/cover no-repeat;
+      text-align: center;
+      padding: 6rem 2rem 8rem;
+      color: white;
+    }
+    .hero h1 {
+      font-size: 4rem;
+      font-weight: 800;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      margin-top: 1rem;
+    }
+    .buttons a {
+      margin: 1rem;
+      padding: 0.75rem 1.5rem;
+      background: #facc15;
+      color: black;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 0.5rem;
+      display: inline-block;
+    }
+
+    .ticker-wrapper {
+      background: #5b21b6;
+      color: #fff;
+      overflow: hidden;
+      white-space: nowrap;
+      font-weight: 800;
+      font-size: 1.1rem;
+      padding: 1rem 0;
+    }
+
+    .ticker-wrapper.green { background: #00c853; }
+    .ticker-wrapper.pink { background: #ff70c1; }
+
+    .ticker {
+      display: inline-block;
+      padding-left: 100%;
+      animation: scroll 25s linear infinite;
+    }
+
+    .ticker span {
+      display: inline-block;
+      padding-right: 3rem;
+    }
+
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+
+    .roadmap-section, .faq-section, .howtobuy-section, .tokenomics-section {
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      padding: 6rem 1rem 3rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .roadmap-section img,
+    .faq-section img,
+    .howtobuy-section img {
+      width: 92%;
+      max-width: 1400px;
+      height: auto;
+      display: block;
+      border-radius: 1rem;
+      box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    }
+
+    .tokenomics-wrapper {
+      background: rgba(0, 0, 0, 0.75);
+      padding: 3rem;
+      border-radius: 1.5rem;
+      width: 92%;
+      max-width: 1000px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.4);
+      position: relative;
+      overflow: hidden;
+      color: white;
+      text-align: center;
+    }
+
+    .tokenomics-wrapper h2 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      margin-bottom: 2rem;
+      color: #facc15;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    }
+
+    .tokenomics-wrapper ul {
+      list-style: none;
+      font-size: 1.3rem;
+      line-height: 2.2;
+      padding: 0;
+    }
+
+    .tokenomics-wrapper li {
+      margin-bottom: 1rem;
+    }
+
+    .pepe-slide {
+      position: absolute;
+      left: -200px;
+      bottom: 0;
+      height: 180px;
+      opacity: 0;
+      transform: translateX(0);
+      transition: all 1.2s ease-out;
+      cursor: pointer;
+    }
+
+    .tokenomics-section.visible .pepe-slide {
+      opacity: 1;
+      transform: translateX(220px);
+    }
+
+    footer {
+      text-align: center;
+      color: #888;
+      padding: 3rem 1rem;
+      background: #000;
+    }
+
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 99;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: #111;
+      padding: 2rem;
+      border-radius: 1rem;
+      text-align: center;
+      color: #facc15;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.5);
+      position: relative;
+    }
+
+    .modal-content input {
+      width: 100%;
+      padding: 0.75rem;
+      margin-top: 1rem;
+      border-radius: 0.5rem;
+      border: none;
+      font-size: 1rem;
+    }
+
+    .modal-content button {
+      margin-top: 1rem;
+      padding: 0.75rem 1.5rem;
+      background: #facc15;
+      color: #111;
+      font-weight: bold;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+    }
+
+    .modal-content #modalMessage {
+      margin-top: 1rem;
+      font-size: 1rem;
+      color: #f87171;
+    }
+
+    .modal-content .close {
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#roadmap">Roadmap</a>
+    <a href="#faq">FAQ</a>
+    <a href="#howtobuy">How to Buy</a>
+    <a href="#tokenomics">Tokenomics</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>$BIGBALLZ</h1>
+    <p>The most based coin on the blockchain<br />Only BigBallz Survive<br />Launch in June 2025</p>
+    <div class="buttons">
+      <a href="#">Buy $BIGBALLZ</a>
+      <a href="#roadmap">Enter Roadmap</a>
+      <a href="https://t.me/pepebigballz" target="_blank">Join Telegram</a>
+      <a href="https://x.com/pepebigballz" target="_blank">Follow on X</a>
+    </div>
+  </section>
+
+  <div class="ticker-wrapper">
+    <div class="ticker">
+      <span>$BIGBALLZ IS COMING — THE MOST BASED COIN ON THE BLOCKCHAIN</span>
+      <span>LAUNCHING JUNE 2025 — JOIN THE BROTHERHOOD NOW</span>
+      <span>ONLY BIGBALLZ SURVIVE — STAY BASED, STAY BOLD</span>
+    </div>
+  </div>
+
+  <section class="roadmap-section" id="roadmap" style="background-image: url('bg-roadmap.png');">
+    <img src="roadmap-visual.png" alt="BigBallz Roadmap" />
+  </section>
+
+  <div class="ticker-wrapper green">
+    <div class="ticker">
+      <span>BIGBALLZ HOLDERS GET BALLZIER REWARDS — STAY BOLD, STAY BASED</span>
+      <span>JOIN THE COMMUNITY OF CHADS NOW — TELEGRAM IS WAITING</span>
+      <span>MEMES. UTILITY. $BALLZ — THE HOLY TRINITY</span>
+    </div>
+  </div>
+
+  <section class="faq-section" id="faq" style="background-image: url('bg-faq.png');">
+    <img src="faq-visual.png" alt="BigBallz FAQ" />
+  </section>
+
+  <div class="ticker-wrapper pink">
+    <div class="ticker">
+      <span>FAQ? WE GOT YOU COVERED — GOT MORE QUESTIONS? JUMP IN TELEGRAM</span>
+      <span>TRUST, TRANSPARENCY, AND TIGHT BALLZ — ALWAYS</span>
+      <span>YOUR $BALLZ QUESTIONS DESERVE BALLZY ANSWERS</span>
+    </div>
+  </div>
+
+  <section class="howtobuy-section" id="howtobuy" style="background-image: url('bg-howtobuy.png');">
+    <img src="howtobuy-visual.png" alt="How to Buy $BIGBALLZ" />
+  </section>
+
+  <div class="ticker-wrapper" style="background: #facc15; color: #111;">
+    <div class="ticker">
+      <span>GET YOUR $BIGBALLZ IN 3 EASY STEPS — CHECK OUT THE GUIDE ABOVE</span>
+      <span>BUY ON UNISWAP — CONNECT WALLET 🔗 — STAY BASED</span>
+      <span>ONLY REAL ONES KNOW HOW TO LOAD UP ON $BALLZ</span>
+    </div>
+  </div>
+
+  <section class="tokenomics-section" id="tokenomics" style="background-image: url('bg-tokenomics.png');">
+    <div class="tokenomics-wrapper">
+      <img src="pepe.png" class="pepe-slide" alt="Pepe" />
+      <h2>Tokenomics</h2>
+      <ul>
+        <li><strong>Supply:</strong> 1,000,000 $BIGBALLZ</li>
+        <li><strong>Liquidity:</strong> 25% — added on Uniswap</li>
+        <li><strong>LP Lock:</strong> 12 months</li>
+        <li><strong>Airdrop:</strong> 15% — community distribution</li>
+        <li><strong>Growth Fund:</strong> 60% — for memes, rewards, listings</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 BigBallzProject. Powered by Memes & Brotherhood.
+  </footer>
+
+  <!-- MODAL -->
+  <div id="pepeModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h3>DROP YOUR ETH ADDRESS AND GET AIRBALLED</h3>
+      <input type="text" id="ethInput" placeholder="0x..." />
+      <button id="submitEth">Submit</button>
+      <p id="modalMessage"></p>
+    </div>
+  </div>
+
+  <!-- SCRIPT -->
+  <script>
+    // Pepe animation
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    });
+    observer.observe(document.querySelector('.tokenomics-section'));
+
+    // Modal logic
+    const pepeImg = document.querySelector('.pepe-slide');
+    const modal = document.getElementById('pepeModal');
+    const closeBtn = document.querySelector('.close');
+    const submitBtn = document.getElementById('submitEth');
+    const input = document.getElementById('ethInput');
+    const message = document.getElementById('modalMessage');
+
+    pepeImg.addEventListener('click', () => {
+      modal.style.display = 'flex';
+      input.value = '';
+      message.textContent = '';
+      message.style.color = '#f87171';
+    });
+
+    closeBtn.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+
+    window.addEventListener('click', e => {
+      if (e.target === modal) modal.style.display = 'none';
+    });
+
+    submitBtn.addEventListener('click', () => {
+      const val = input.value.trim();
+      if (!val.startsWith('0x') || val.length !== 42) {
+        message.textContent = '❌ Something’s not right. Please enter a valid ETH address.';
+        message.style.color = '#f87171';
+      } else {
+        message.style.color = '#00e676';
+        message.textContent = '✅ Airdrop request received. Stay based.';
+      }
+    });
+  </script>
+</body>
+</html>
