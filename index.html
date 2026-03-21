@@ -14,8 +14,9 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             min-height: 100vh;
-            /* Фоновое изображение как в начале — повторяется мозаикой */
-            background: url('https://t4.ftcdn.net/jpg/18/76/56/01/360_F_1876560122_RyV0yKr52eUtY72DuikLtt2Cl43Nvx6F.jpg') repeat top left;
+            /* Фон без повторений, масштабируется на весь экран */
+            background: url('https://t4.ftcdn.net/jpg/18/76/56/01/360_F_1876560122_RyV0yKr52eUtY72DuikLtt2Cl43Nvx6F.jpg') no-repeat center center fixed;
+            background-size: cover;
             display: flex;
             align-items: center;
             justify-content: center;
