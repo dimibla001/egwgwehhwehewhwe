@@ -14,7 +14,6 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             min-height: 100vh;
-            /* Фон без повторений, масштабируется на весь экран */
             background: url('https://images.wallpaperscraft.ru/image/single/dengi_monety_dollary_218243_1920x1080.jpg') no-repeat center center fixed;
             background-size: cover;
             display: flex;
@@ -25,11 +24,10 @@
             line-height: 1.5;
         }
 
-        /* Карточка полностью непрозрачная */
         .card {
             max-width: 600px;
             width: 100%;
-            background: #0a0a10; /* плотный чёрный фон */
+            background: #0a0a10;
             border-radius: 32px;
             padding: 40px 30px;
             box-shadow: 0 25px 40px -10px rgba(0, 0, 0, 0.7);
@@ -145,33 +143,16 @@
         }
 
         @media (max-width: 480px) {
-            .card {
-                padding: 30px 20px;
-            }
-            h1 {
-                font-size: 1.8rem;
-            }
-            .subhead {
-                font-size: 1.2rem;
-            }
-            .description {
-                font-size: 1rem;
-            }
-            .signal-item {
-                font-size: 1rem;
-                padding: 10px 15px;
-            }
-            .cta-link {
-                font-size: 1.2rem;
-                padding: 15px;
-            }
+            .card { padding: 30px 20px; }
+            h1 { font-size: 1.8rem; }
+            .subhead { font-size: 1.2rem; }
+            .description { font-size: 1rem; }
+            .signal-item { font-size: 1rem; padding: 10px 15px; }
+            .cta-link { font-size: 1.2rem; padding: 15px; }
         }
 
-        html, body {
-            height: 100%;
-        }
+        html, body { height: 100%; }
     </style>
-    <!-- Meta Pixel Code -->
     <script>
     !function(f,b,e,v,n,t,s)
     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -187,28 +168,36 @@
     <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=1300951611922470&ev=PageView&noscript=1"
     /></noscript>
-    <!-- End Meta Pixel Code -->
 </head>
 <body>
     <div class="card">
         <h1>DiesZero</h1>
-        <div class="subhead">Бесплатные торговые сигналы!</div>
+        <div class="subhead">Ловишь ФОМО от рынка? Тогда тебе к нам!</div>
         <div class="description">
-            Учись торговать и зарабатывай пассивный доход.<br>
-            Присоединяйся к более чем 45 000 участникам по всему миру!
+            Хватит кормить «гуру» с их платными випками. Мы здесь, чтобы рубить профит вместе. Читаем ходы маркет мейкера наперёд.
         </div>
 
-        <!-- Ежедневные  -->
         <div class="signal-item warning">
             <span class="signal-icon">⚠️</span>
-            <span class="signal-text">Ежедневно 4–6 проверенных сигналов с четкой структурой</span>
+            <span class="signal-text">Ежедневный анализ рынка без воды с чёткой структурой</span>
         </div>
 
-        <!-- Пункты с галочками: точность 90%+ -->
         <div class="stats">
             <div class="stat-line">
                 <span>✔️</span>
-                <span>90 %+ точность прохода</span>
+                <span>Понятная база для новичков</span>
+            </div>
+            <div class="stat-line">
+                <span>✔️</span>
+                <span>Реальный опыт, а не сухие графики</span>
+            </div>
+            <div class="stat-line">
+                <span>✔️</span>
+                <span>Живое комьюнити из 100 000+ человек</span>
+            </div>
+            <div class="stat-line">
+                <span>✔️</span>
+                <span>90%+ точность прохода</span>
             </div>
             <div class="stat-line">
                 <span>✔️</span>
@@ -218,13 +207,11 @@
 
         <div class="divider"></div>
 
-        <!-- Кнопка-ссылка на Telegram -->
         <a href="https://t.me/+Zb-_QJdMtBwwMDM8" class="cta-link" target="_blank" rel="noopener noreferrer">
-            ⚠️ Вступай в нашу бесплатную группу! ⚠️
+            Присоединяйся!
         </a>
     </div>
 
-    <!-- Скрипт для авторедиректа через 10 секунд бездействия -->
     <script>
         let redirectTimer;
 
@@ -242,7 +229,6 @@
 
         window.onload = function() {
             startRedirectTimer();
-
             document.addEventListener('mousemove', resetTimer);
             document.addEventListener('keydown', resetTimer);
             document.addEventListener('click', resetTimer);
@@ -251,7 +237,6 @@
         };
     </script>
 
-    <!-- Отслеживание клика по кнопке (событие Lead) -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const ctaButton = document.querySelector('.cta-link');
