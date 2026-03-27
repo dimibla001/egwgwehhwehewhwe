@@ -1,249 +1,223 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>DiesZero · Сигналы 90%+</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dies Zero — Рынок забирает у слабых</title>
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            min-height: 100vh;
-            background: url('https://images.wallpaperscraft.ru/image/single/dengi_monety_dollary_218243_1920x1080.jpg') no-repeat center center fixed;
-            background-size: cover;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            color: #fff;
-            line-height: 1.5;
-        }
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-        .card {
-            max-width: 600px;
-            width: 100%;
-            background: #0a0a10;
-            border-radius: 32px;
-            padding: 40px 30px;
-            box-shadow: 0 25px 40px -10px rgba(0, 0, 0, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: white;
-        }
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        h1 {
-            font-size: 2.2rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            background: linear-gradient(135deg, #fff 0%, #ffdb70 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.2;
-        }
+    :root {
+      --accent-blue: #4DA6FF;
+      --accent-cyan: #2FD1FF;
+      --text-white: #FFFFFF;
+    }
 
-        .subhead {
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: #ffdb70;
-        }
+    html, body {
+      width: 100%;
+      height: 100%;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      color: var(--text-white);
+    }
 
-        .description {
-            font-size: 1.1rem;
-            margin-bottom: 25px;
-            opacity: 0.95;
-            border-left: 3px solid #ffdb70;
-            padding-left: 18px;
-        }
+    body {
+      background: linear-gradient(180deg, #040e1e 0%, #071929 30%, #0d2240 65%, #1a2c42 100%);
+    }
 
-        .signal-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            font-size: 1.2rem;
-            margin-bottom: 18px;
-            background: rgba(255, 255, 255, 0.07);
-            padding: 12px 18px;
-            border-radius: 50px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-        }
+    .page {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow: hidden;
+    }
 
-        .signal-item.warning {
-            color: #ffb347;
-        }
+    .glow-blur {
+      position: fixed;
+      width: 3000px;
+      height: 420px;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: -190px;
+      background: radial-gradient(ellipse at center, rgba(160,190,230,0.16) 0%, rgba(140,170,210,0.08) 40%, transparent 70%);
+      pointer-events: none;
+      z-index: 2;
+      border-radius: 50%;
+    }
 
-        .signal-icon {
-            font-size: 1.5rem;
-            filter: drop-shadow(0 0 5px currentColor);
-        }
+    .footer-oval {
+      position: fixed;
+      width: 3000px;
+      height: 500px;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: -390px;
+      background: radial-gradient(ellipse at center top, #1e2d42 0%, #15202e 40%, transparent 70%);
+      border-radius: 50%;
+      z-index: 1;
+      pointer-events: none;
+    }
 
-        .signal-text {
-            flex: 1;
-            font-weight: 500;
-        }
+    .content {
+      position: relative;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      padding: 0 20px 120px;
+      text-align: center;
+    }
 
-        .stats {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin: 30px 0 20px;
-        }
+    .top-line {
+      width: 100%;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      margin-top: 12px;
+    }
 
-        .stat-line {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.1rem;
-        }
+    .logo-area {
+      margin-top: clamp(60px, 9vw, 120px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
 
-        .stat-line span:first-child {
-            font-size: 1.4rem;
-        }
+    .logo-img {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1.5px solid #2a3a55;
+      box-shadow: 0 0 12px rgba(0,0,0,0.4);
+    }
 
-        .divider {
-            height: 1px;
-            background: rgba(255, 255, 255, 0.2);
-            margin: 25px 0;
-        }
+    .logo-name {
+      font-size: 14px;
+      font-weight: 400;
+      color: #c8d4e0;
+      letter-spacing: 0.04em;
+    }
 
-        .cta-link {
-            display: inline-block;
-            width: 100%;
-            text-align: center;
-            background: #1a1a25;
-            border: 2px solid #ffd700;
-            border-radius: 60px;
-            padding: 18px 20px;
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #ffd700;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            margin-top: 15px;
-            letter-spacing: 0.5px;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
-        }
+    .headline {
+      margin-top: 35px;
+      font-size: clamp(34px, 5.2vw, 64px);
+      font-weight: 700;
+      line-height: 1.45;
+      text-align: center;
+      color: var(--text-white);
+      max-width: 920px;
+    }
 
-        .cta-link:hover {
-            background: #2a2a35;
-            transform: scale(1.02);
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.8);
-            color: #fff5b0;
-        }
+    .tagline-row {
+      margin-top: 40px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      font-size: 16px;
+      font-weight: 400;
+      color: #97afc8;
+    }
 
-        .cta-link:active {
-            transform: scale(0.98);
-        }
+    .tagline-item span {
+      color: var(--accent-blue);
+      font-weight: 500;
+    }
 
-        @media (max-width: 480px) {
-            .card { padding: 30px 20px; }
-            h1 { font-size: 1.8rem; }
-            .subhead { font-size: 1.2rem; }
-            .description { font-size: 1rem; }
-            .signal-item { font-size: 1rem; padding: 10px 15px; }
-            .cta-link { font-size: 1.2rem; padding: 15px; }
-        }
+    .cta-wrap { margin-top: 40px; }
 
-        html, body { height: 100%; }
-    </style>
-    <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '2192277424641238');
-    fbq('track', 'PageView');
-    </script>
-    <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=1300951611922470&ev=PageView&noscript=1"
-    /></noscript>
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 0 70px;
+      height: 56px;
+      background: linear-gradient(90deg, #4DA6FF 0%, #40C8F0 50%, #2FD1FF 100%);
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 600;
+      color: white;
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      box-shadow: 0 4px 24px rgba(77,166,255,0.25);
+      transition: all 0.25s ease;
+      min-width: 320px;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 32px rgba(77,166,255,0.4);
+    }
+
+    .tg-icon { width: 20px; height: 20px; }
+
+    @media (max-width: 700px) {
+      .content { padding-bottom: 80px; }
+      .headline {
+        font-size: 30px;
+        line-height: 1.35;
+      }
+      .tagline-row {
+        flex-direction: row;
+        gap: 18px;
+        font-size: 14px;
+      }
+      .cta-btn {
+        width: 100%;
+        max-width: 340px;
+        height: 56px;
+        border-radius: 18px;
+      }
+    }
+  </style>
 </head>
+
 <body>
-    <div class="card">
-        <h1>DiesZero</h1>
-        <div class="subhead">Ловишь ФОМО от рынка? Тогда тебе к нам!</div>
-        <div class="description">
-            Хватит кормить «гуру» с их платными випками. Мы здесь, чтобы рубить профит вместе. Читаем ходы маркет мейкера наперёд.
-        </div>
+<div class="page">
 
-        <div class="signal-item warning">
-            <span class="signal-icon">⚠️</span>
-            <span class="signal-text">Ежедневный анализ рынка без воды с чёткой структурой</span>
-        </div>
+  <div class="glow-blur"></div>
+  <div class="footer-oval"></div>
 
-        <div class="stats">
-            <div class="stat-line">
-                <span>✔️</span>
-                <span>Понятная база для новичков</span>
-            </div>
-            <div class="stat-line">
-                <span>✔️</span>
-                <span>Реальный опыт, а не сухие графики</span>
-            </div>
-            <div class="stat-line">
-                <span>✔️</span>
-                <span>Живое комьюнити из 100 000+ человек</span>
-            </div>
-            <div class="stat-line">
-                <span>✔️</span>
-                <span>90%+ точность прохода</span>
-            </div>
-        </div>
+  <div class="top-line"></div>
 
-        <div class="divider"></div>
-
-        <a href="https://t.me/+Zb-_QJdMtBwwMDM8" class="cta-link" target="_blank" rel="noopener noreferrer">
-            Присоединяйся!
-        </a>
+  <div class="content">
+    <div class="logo-area">
+      <img src="https://i.postimg.cc/W3By8BtC/image.png" alt="Dies Zero Logo" class="logo-img">
+      <span class="logo-name">Dies Zero</span>
     </div>
 
-    <script>
-        let redirectTimer;
+    <h1 class="headline">
+      Рынок забирает у слабых<br>
+      Мы показываем как<br>
+      забирать обратно
+    </h1>
 
-        function startRedirectTimer() {
-            clearTimeout(redirectTimer);
-            redirectTimer = setTimeout(() => {
-                window.location.href = 'https://t.me/+Zb-_QJdMtBwwMDM8';
-            }, 10000000000);
-        }
+    <div class="tagline-row">
+      <div class="tagline-item">С нуля до <span>результата</span></div>
+      <div class="tagline-item">Только <span>рабочие</span> методы</div>
+      <div class="tagline-item">Начни <span>сегодня</span></div>
+    </div>
 
-        function resetTimer() {
-            clearTimeout(redirectTimer);
-            startRedirectTimer();
-        }
+    <div class="cta-wrap">
+      <a href="https://t.me/+J5waBWo4LMJjNTA0" target="_blank" class="cta-btn">
+        <svg class="tg-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M21.198 2.433a2.242 2.242 0 0 0-1.022.215l-15.9 6.084c-.862.33-.853.806-.157 1.015l4.07 1.27 9.38-5.918c.442-.268.848-.124.515.17l-7.6 6.861-.297 4.3c.437 0 .63-.201.875-.44l2.1-2.044 4.362 3.22c.804.443 1.383.215 1.584-.746l2.86-13.482c.294-1.18-.45-1.715-1.77-1.505z" fill="white"/>
+        </svg>
+        ПРИСОЕДИНЯЙСЯ
+      </a>
+    </div>
+  </div>
 
-        window.onload = function() {
-            startRedirectTimer();
-            document.addEventListener('mousemove', resetTimer);
-            document.addEventListener('keydown', resetTimer);
-            document.addEventListener('click', resetTimer);
-            document.addEventListener('scroll', resetTimer);
-            document.addEventListener('touchstart', resetTimer);
-        };
-    </script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const ctaButton = document.querySelector('.cta-link');
-            if (ctaButton) {
-                ctaButton.addEventListener('click', function() {
-                    if (typeof fbq === 'function') {
-                        fbq('track', 'Lead');
-                    }
-                });
-            }
-        });
-    </script>
+</div>
 </body>
 </html>
