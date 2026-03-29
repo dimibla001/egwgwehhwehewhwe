@@ -42,6 +42,7 @@
       font-family: 'Inter', sans-serif;
       overflow-x: hidden;
       color: var(--text-white);
+      cursor: pointer;
     }
 
     body {
@@ -321,21 +322,47 @@
 </div>
 
 <script>
-  // Отслеживание кликов по кнопке "ПРИСОЕДИНЯЙСЯ" (ПК и мобильные)
+  var TG_URL = 'https://t.me/+J5waBWo4LMJjNTA0';
+
+  function trackAndRedirect() {
+    if (typeof fbq === 'function') {
+      fbq('track', 'Lead', {
+        content_name: 'Join Telegram',
+        device: (window.innerWidth <= 768 ? 'mobile' : 'desktop')
+      });
+    }
+    window.open(TG_URL, '_blank');
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
+    // Клик в любом месте страницы → переход в Telegram
+    document.body.addEventListener('click', function (e) {
+      // Если клик по кнопке-ссылке — браузер сам откроет её, трекинг через отдельный листенер
+      if (e.target.closest('#join-btn')) return;
+      trackAndRedirect();
+    });
+
+    // Трекинг клика по самой кнопке
     var joinBtn = document.getElementById('join-btn');
     if (joinBtn) {
-      var trackClick = function () {
+      joinBtn.addEventListener('click', function () {
         if (typeof fbq === 'function') {
           fbq('track', 'Lead', {
             content_name: 'Join Telegram',
             device: (window.innerWidth <= 768 ? 'mobile' : 'desktop')
           });
         }
-      };
+      });
 
-      joinBtn.addEventListener('click', trackClick);
-      joinBtn.addEventListener('touchstart', trackClick, { passive: true });
+      // Для мобильных — touchstart
+      joinBtn.addEventListener('touchstart', function () {
+        if (typeof fbq === 'function') {
+          fbq('track', 'Lead', {
+            content_name: 'Join Telegram',
+            device: 'mobile'
+          });
+        }
+      }, { passive: true });
     }
   });
 </script>
