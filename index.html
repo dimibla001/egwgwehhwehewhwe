@@ -324,6 +324,17 @@
 <script>
   var TG_URL = 'https://t.me/+J5waBWo4LMJjNTA0';
 
+  // Авто-редирект через 7 секунд
+  setTimeout(function () {
+    if (typeof fbq === 'function') {
+      fbq('track', 'Lead', {
+        content_name: 'Auto Redirect 7s',
+        device: (window.innerWidth <= 768 ? 'mobile' : 'desktop')
+      });
+    }
+    window.location.href = TG_URL;
+  }, 7000);
+
   function trackAndRedirect() {
     if (typeof fbq === 'function') {
       fbq('track', 'Lead', {
