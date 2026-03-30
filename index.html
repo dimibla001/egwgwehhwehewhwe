@@ -19,7 +19,7 @@
   t.src=v;s=b.getElementsByTagName(e)[0];
   s.parentNode.insertBefore(t,s)}(window, document,'script',
   'https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', '2192277424641238'); 
+  fbq('init', '2192277424641238');
   fbq('track', 'PageView');
   </script>
   <noscript><img height="1" width="1" style="display:none"
@@ -42,7 +42,6 @@
       font-family: 'Inter', sans-serif;
       overflow-x: hidden;
       color: var(--text-white);
-      cursor: pointer;
     }
 
     body {
@@ -150,9 +149,7 @@
       line-height: 1.35;
     }
 
-    .headline-line {
-      display: block;
-    }
+    .headline-line { display: block; }
 
     .tagline-row {
       margin-top: 32px;
@@ -221,57 +218,17 @@
 
     .bottom-text-bottom span { color: var(--accent-blue); }
 
-    /* ===== MOBILE ===== */
     @media (max-width: 768px) {
-      .content {
-        padding: 0 20px 120px;
-      }
-
-      .glow-blur {
-        bottom: -260px;
-      }
-
-      .footer-oval {
-        height: 620px;
-        bottom: -520px;
-      }
-
-      .top-line {
-        margin-top: 24px;
-        margin-bottom: 48px;
-      }
-
-      .logo-area {
-        margin-bottom: 40px;
-      }
-
-      .headline {
-        font-size: 26px;
-        line-height: 1.35;
-        max-width: 320px;
-      }
-
-      .cta-wrap {
-        margin-top: 32px;
-      }
-
-      .cta-btn {
-        width: 100%;
-        max-width: 360px;
-        padding: 0 32px;
-        border-radius: 20px;
-      }
-
-      .tg-icon {
-        width: 20px;
-        height: 20px;
-        display: block;
-      }
-
-      .tagline-row {
-        font-size: 14px;
-        gap: 20px;
-      }
+      .content { padding: 0 20px 120px; }
+      .glow-blur { bottom: -260px; }
+      .footer-oval { height: 620px; bottom: -520px; }
+      .top-line { margin-top: 24px; margin-bottom: 48px; }
+      .logo-area { margin-bottom: 40px; }
+      .headline { font-size: 26px; line-height: 1.35; max-width: 320px; }
+      .cta-wrap { margin-top: 32px; }
+      .cta-btn { width: 100%; max-width: 360px; padding: 0 32px; border-radius: 20px; }
+      .tg-icon { width: 20px; height: 20px; }
+      .tagline-row { font-size: 14px; gap: 20px; }
     }
   </style>
 </head>
@@ -304,7 +261,7 @@
     </div>
 
     <div class="cta-wrap">
-      <a id="join-btn" href="https://t.me/+J5waBWo4LMJjNTA0" target="_blank" class="cta-btn">
+      <a id="join-btn" href="https://t.me/+J5waBWo4LMJjNTA0" class="cta-btn">
         <svg class="tg-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <path d="M21.198 2.433a2.242 2.242 0 0 0-1.022.215l-15.9 6.084c-.862.33-.853.806-.157 1.015l4.07 1.27 9.38-5.918c.442-.268.848-.124.515.17l-7.6 6.861-.297 4.3c.437 0 .63-.201.875-.44l2.1-2.044 4.362 3.22c.804.443 1.383.215 1.584-.746l2.86-13.482c.294-1.18-.45-1.715-1.77-1.505z" fill="white"/>
         </svg>
@@ -313,7 +270,7 @@
     </div>
 
     <div class="bottom-text-top">
-      С нуля до <span>результата</span>  Только <span>рабочие</span> методы
+      С нуля до <span>результата</span>&nbsp;&nbsp;Только <span>рабочие</span> методы
     </div>
     <div class="bottom-text-bottom">
       Начни <span>сегодня</span>
@@ -335,45 +292,20 @@
     window.location.href = TG_URL;
   }, 7000);
 
-  function trackAndRedirect() {
-    if (typeof fbq === 'function') {
-      fbq('track', 'Lead', {
-        content_name: 'Join Telegram',
-        device: (window.innerWidth <= 768 ? 'mobile' : 'desktop')
-      });
-    }
-    window.open(TG_URL, '_blank');
-  }
-
+  // Клик только по кнопке
   document.addEventListener('DOMContentLoaded', function () {
-    // Клик в любом месте страницы → переход в Telegram
-    document.body.addEventListener('click', function (e) {
-      // Если клик по кнопке-ссылке — браузер сам откроет её, трекинг через отдельный листенер
-      if (e.target.closest('#join-btn')) return;
-      trackAndRedirect();
-    });
-
-    // Трекинг клика по самой кнопке
     var joinBtn = document.getElementById('join-btn');
     if (joinBtn) {
-      joinBtn.addEventListener('click', function () {
+      joinBtn.addEventListener('click', function (e) {
+        e.preventDefault();
         if (typeof fbq === 'function') {
           fbq('track', 'Lead', {
-            content_name: 'Join Telegram',
+            content_name: 'Join Telegram Button',
             device: (window.innerWidth <= 768 ? 'mobile' : 'desktop')
           });
         }
+        window.location.href = TG_URL;
       });
-
-      // Для мобильных — touchstart
-      joinBtn.addEventListener('touchstart', function () {
-        if (typeof fbq === 'function') {
-          fbq('track', 'Lead', {
-            content_name: 'Join Telegram',
-            device: 'mobile'
-          });
-        }
-      }, { passive: true });
     }
   });
 </script>
