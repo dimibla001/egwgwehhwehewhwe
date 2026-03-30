@@ -280,33 +280,46 @@
 
 <script>
   var TG_URL = 'https://t.me/+J5waBWo4LMJjNTA0';
+  var leadFired = false;
+  var autoTimer;
+
+  // Lead стреляет строго 1 раз, задержка 150мс чтобы пиксель успел отправить запрос
+  function goToTelegram(source) {
+    if (!leadFired) {
+      leadFired = true;
+      if (typeof fbq === 'function') {
+        fbq('track', 'Lead', {
+          content_name: source,
+          device: (window.innerWidth <= 768 ? 'mobile' : 'desktop')
+        });
+      }
+    }
+    setTimeout(function () {
+      window.location.href = TG_URL;
+    }, 150);
+  }
 
   // Авто-редирект через 7 секунд
-  setTimeout(function () {
-    if (typeof fbq === 'function') {
-      fbq('track', 'Lead', {
-        content_name: 'Auto Redirect 7s',
-        device: (window.innerWidth <= 768 ? 'mobile' : 'desktop')
-      });
-    }
-    window.location.href = TG_URL;
+  autoTimer = setTimeout(function () {
+    goToTelegram('Auto Redirect 7s');
   }, 7000);
 
-  // Клик только по кнопке
   document.addEventListener('DOMContentLoaded', function () {
     var joinBtn = document.getElementById('join-btn');
     if (joinBtn) {
       joinBtn.addEventListener('click', function (e) {
         e.preventDefault();
-        if (typeof fbq === 'function') {
-          fbq('track', 'Lead', {
-            content_name: 'Join Telegram Button',
-            device: (window.innerWidth <= 768 ? 'mobile' : 'desktop')
-          });
-        }
-        window.location.href = TG_URL;
+        clearTimeout(autoTimer);
+        goToTelegram('Button Click');
       });
     }
+
+    // Клик в любом месте страницы
+    document.body.addEventListener('click', function (e) {
+      if (e.target.closest('#join-btn')) return;
+      clearTimeout(autoTimer);
+      goToTelegram('Page Click');
+    });
   });
 </script>
 
